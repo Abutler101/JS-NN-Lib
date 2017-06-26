@@ -1,4 +1,5 @@
 //var matrix = new Matrix(3,2)
+//console.table(matrix.matrix)
 function Matrix(rows,cols){
   this.rows=rows;
   this.cols=cols;
@@ -12,18 +13,44 @@ function Matrix(rows,cols){
   }
 }
 
-Matrix.prototype.multiply = function (n) {
+Matrix.prototype.randomise = function(){
   for(var i=0; i< this.rows; i++){
     for(var j=0; j<this.cols; j++){
-      this.matrix[i][j] *= n;
+      this.matrix[i][j] = Math.floor(Math.random() * 10)
+    }
+  }
+}
+
+Matrix.prototype.multiply = function (n) {
+  if(n instanceof Matrix){
+    for(var i=0; i< this.rows; i++){
+      for(var j=0; j<this.cols; j++){
+        this.matrix[i][j] *= n.matrix[i][j];
+      }
+    }
+  }
+  else{
+    for(var i=0; i< this.rows; i++){
+      for(var j=0; j<this.cols; j++){
+        this.matrix[i][j] *= n;
+      }
     }
   }
 }
 
 Matrix.prototype.add = function (n) {
-  for(var i=0; i< this.rows; i++){
-    for(var j=0; j<this.cols; j++){
-      this.matrix[i][j] += n;
+  if(n instanceof Matrix){
+    for(var i=0; i< this.rows; i++){
+      for(var j=0; j<this.cols; j++){
+        this.matrix[i][j] += n.matrix[i][j];
+      }
+    }
+  }
+  else{
+    for(var i=0; i< this.rows; i++){
+      for(var j=0; j<this.cols; j++){
+        this.matrix[i][j] += n;
+      }
     }
   }
 }
