@@ -28,15 +28,22 @@ Matrix.prototype.convToArray = function(){
       arr.push(this.matrix[i][j]);
     }
   }
+  return array;
 }
 
 Matrix.prototype.transpose = function(){
 
-  
+
 }
+
 Matrix.prototype.copy = function(){
-
-
+  var out = new Matrix(this.cols, this.rows);
+  for(var i = 0;i<this.rows;i++){
+    for(var j = 0;j<this.cols;j++){
+      out.Matrix[i][j]=this.Matrix[i][j];
+    }
+  }
+  return out;
 }
 
 Matrix.prototype.multiply = function (n) {
