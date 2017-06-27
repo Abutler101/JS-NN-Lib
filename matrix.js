@@ -114,9 +114,18 @@ Matrix.subtract = function(m1,m2){
   return out;
 }
 
-Matrix.dot = function(){
-
-
+Matrix.dot = function(m1,m2){
+  var out = new Matrix(m1.rows,m2.cols);
+  for(var i = 0;i<m1.rows;i++){
+    for(var j= 0;j<m2.cols;j++){
+      var total = 0;
+      for(var k =0;k<m1.cols;k++){
+        total+= m1.matrix[i][k] * m2.matrix[k][j];
+      }
+      out.matrix[i][j] = total;
+    }
+  }
+  return out;
 }
 
 Matrix.convFromArray = function(){
