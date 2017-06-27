@@ -85,14 +85,24 @@ Matrix.prototype.add = function (n) {
   }
 }
 
-Matrix.map = function(){
-
-
+Matrix.map = function(m,func){
+  var out = new Matrix(m.rows,m.cols);
+  for(var i = 0;i<this.rows;i++){
+    for(var j = 0;j<this.cols;j++){
+      out.matrix[i][j] = func(m.matrix[i][j])
+    }
+  }
+  return out;
 }
 
-Matrix.subtract = function(){
-
-
+Matrix.subtract = function(m1,m2){
+  var out = new Matrix(m1.rows,m2.cols);
+  for(var i = 0;i<this.rows;i++){
+    for(var j = 0;j<this.cols;j++){
+      out.matrix[i][j] = m1.matrix[i][j] - m2.matrix[i][j];
+    }
+  }
+  return out;
 }
 
 Matrix.dot = function(){
