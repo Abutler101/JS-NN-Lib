@@ -114,6 +114,7 @@ Matrix.subtract = function(m1,m2){
   return out;
 }
 
+//Seems to work
 Matrix.dot = function(m1,m2){
   if(m1.cols != m2.rows){
     console.log("matricies are incompatible")
@@ -132,6 +133,7 @@ Matrix.dot = function(m1,m2){
   return out;
 }
 
+//Seems to not be working
 Matrix.convFromArray = function(array){
   var m = new Matrix(array.length, 1);
   for(var i=0;i<array.lenght;i++){
