@@ -22,10 +22,18 @@ Matrix.prototype.randomise = function(){
 }
 
 Matrix.prototype.convToArray = function(){
-
-
+  var array = [];
+  for(var i = 0;i<this.rows;i++){
+    for(var j = 0;j<this.cols;j++){
+      arr.push(this.matrix[i][j]);
+    }
+  }
 }
 
+Matrix.prototype.transpose = function(){
+
+  
+}
 Matrix.prototype.copy = function(){
 
 
@@ -82,5 +90,5 @@ Matrix.dot = function(){
 
 Matrix.convFromArray = function(){
 
-  
+
 }
