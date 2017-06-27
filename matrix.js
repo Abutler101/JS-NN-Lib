@@ -1,5 +1,6 @@
 //var matrix = new Matrix(3,2)
 //console.table(matrix.matrix)
+//
 function Matrix(rows,cols){
   this.rows=rows;
   this.cols=cols;
