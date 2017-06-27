@@ -115,6 +115,10 @@ Matrix.subtract = function(m1,m2){
 }
 
 Matrix.dot = function(m1,m2){
+  if(m1.cols != m2.rows){
+    console.log("matricies are incompatible")
+    return;
+  }
   var out = new Matrix(m1.rows,m2.cols);
   for(var i = 0;i<m1.rows;i++){
     for(var j= 0;j<m2.cols;j++){
