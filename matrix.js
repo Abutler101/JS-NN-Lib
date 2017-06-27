@@ -13,6 +13,7 @@ function Matrix(rows,cols){
   }
 }
 
+//Seems to work
 Matrix.prototype.randomise = function(){
   for(var i=0; i< this.rows; i++){
     for(var j=0; j<this.cols; j++){
@@ -21,16 +22,18 @@ Matrix.prototype.randomise = function(){
   }
 }
 
+//Seems to work
 Matrix.prototype.convToArray = function(){
   var array = [];
   for(var i = 0;i<this.rows;i++){
     for(var j = 0;j<this.cols;j++){
-      arr.push(this.matrix[i][j]);
+      array.push(this.matrix[i][j]);
     }
   }
   return array;
 }
 
+//Not sure if it works
 Matrix.prototype.transpose = function(){
   var out = new Matrix(this.cols,this.rows);
   for(var i = 0;i<this.rows;i++){
@@ -41,16 +44,18 @@ Matrix.prototype.transpose = function(){
   return out;
 }
 
+//Seems to work
 Matrix.prototype.copy = function(){
   var out = new Matrix(this.rows, this.cols);
   for(var i = 0;i<this.rows;i++){
     for(var j = 0;j<this.cols;j++){
-      out.Matrix[i][j]=this.Matrix[i][j];
+      out.matrix[i][j]= this.matrix[i][j];
     }
   }
   return out;
 }
 
+//Seems to work
 Matrix.prototype.multiply = function (n) {
   if(n instanceof Matrix){
     for(var i=0; i< this.rows; i++){
@@ -68,6 +73,7 @@ Matrix.prototype.multiply = function (n) {
   }
 }
 
+//Seems to work
 Matrix.prototype.add = function (n) {
   if(n instanceof Matrix){
     for(var i=0; i< this.rows; i++){
@@ -85,6 +91,7 @@ Matrix.prototype.add = function (n) {
   }
 }
 
+//Not sure if it works
 Matrix.map = function(m,func){
   var out = new Matrix(m.rows,m.cols);
   for(var i = 0;i<this.rows;i++){
@@ -95,6 +102,7 @@ Matrix.map = function(m,func){
   return out;
 }
 
+//Seems to work
 Matrix.subtract = function(m1,m2){
   var out = new Matrix(m1.rows,m2.cols);
   for(var i = 0;i<this.rows;i++){
