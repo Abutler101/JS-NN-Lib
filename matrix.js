@@ -132,7 +132,10 @@ Matrix.dot = function(m1,m2){
   return out;
 }
 
-Matrix.convFromArray = function(){
-
-
+Matrix.convFromArray = function(array){
+  var m = new Matrix(array.length, 1);
+  for(var i=0;i<array.lenght;i++){
+    m.matrix[i][0] = array[i];
+  }
+  return m;
 }
