@@ -32,12 +32,17 @@ Matrix.prototype.convToArray = function(){
 }
 
 Matrix.prototype.transpose = function(){
-
-
+  var out = new Matrix(this.cols,this.rows);
+  for(var i = 0;i<this.rows;i++){
+    for(var j = 0;j<this.cols;j++){
+      out.matrix[i][j] = this.matrix[j][i];
+    }
+  }
+  return out;
 }
 
 Matrix.prototype.copy = function(){
-  var out = new Matrix(this.cols, this.rows);
+  var out = new Matrix(this.rows, this.cols);
   for(var i = 0;i<this.rows;i++){
     for(var j = 0;j<this.cols;j++){
       out.Matrix[i][j]=this.Matrix[i][j];
