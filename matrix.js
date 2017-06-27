@@ -95,8 +95,8 @@ Matrix.prototype.add = function (n) {
 //Not sure if it works
 Matrix.map = function(m,func){
   var out = new Matrix(m.rows,m.cols);
-  for(var i = 0;i<this.rows;i++){
-    for(var j = 0;j<this.cols;j++){
+  for(var i = 0;i<out.rows;i++){
+    for(var j = 0;j<out.cols;j++){
       out.matrix[i][j] = func(m.matrix[i][j])
     }
   }
@@ -106,8 +106,8 @@ Matrix.map = function(m,func){
 //Seems to work
 Matrix.subtract = function(m1,m2){
   var out = new Matrix(m1.rows,m2.cols);
-  for(var i = 0;i<this.rows;i++){
-    for(var j = 0;j<this.cols;j++){
+  for(var i = 0;i<out.rows;i++){
+    for(var j = 0;j<out.cols;j++){
       out.matrix[i][j] = m1.matrix[i][j] - m2.matrix[i][j];
     }
   }
