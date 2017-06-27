@@ -21,6 +21,16 @@ Matrix.prototype.randomise = function(){
   }
 }
 
+Matrix.prototype.convToArray = function(){
+
+
+}
+
+Matrix.prototype.copy = function(){
+
+
+}
+
 Matrix.prototype.multiply = function (n) {
   if(n instanceof Matrix){
     for(var i=0; i< this.rows; i++){
@@ -53,4 +63,24 @@ Matrix.prototype.add = function (n) {
       }
     }
   }
+}
+
+Matrix.map = function(){
+
+
+}
+
+Matrix.subtract = function(){
+
+
+}
+
+Matrix.dot = function(){
+
+
+}
+
+Matrix.convFromArray = function(){
+
+  
 }
