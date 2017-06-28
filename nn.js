@@ -27,5 +27,7 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var targets = Matrix.convFromArray(targetsArray);
   var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
   var outOfHidden = Matrix.map(inputToHidden,this.activationFunc);
+  var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
+  var outOfOutput = Matrix.map(inputToOutput,this.activationFunc);
 
 }
