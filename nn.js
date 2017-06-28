@@ -30,9 +30,9 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var outOfHidden = Matrix.map(inputToHidden,this.activationFunc);
   var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
   var outOfOutput = Matrix.map(inputToOutput,this.activationFunc);
-//feed-backward
+//back-prop
   var errorsOnOutput = Matrix.subtract(targets,outputs);
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
   var errorsOnHidden = Matrix.dot(weightsHiddenToOutputTrans, errorsOnOutput);
-  
+
 }
