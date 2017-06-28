@@ -23,16 +23,24 @@ function NeuralNetwork(noI,noH,noO,lr,act){
   }
 }
 NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
-//feed-forward
+//feed forward
   var inputs = Matrix.convFromArray(inputsArray);
   var targets = Matrix.convFromArray(targetsArray);
   var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
   var outOfHidden = Matrix.map(inputToHidden,this.activationFunc);
   var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
   var outOfOutput = Matrix.map(inputToOutput,this.activationFunc);
-//back-prop
+//back prop
   var errorsOnOutput = Matrix.subtract(targets,outputs);
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
   var errorsOnHidden = Matrix.dot(weightsHiddenToOutputTrans, errorsOnOutput);
-
+//Gradient slide
+  var gradientOutput = Matrix.map(outputs,this.derivationFunc);
+  gradientOutput.multiply(errorsOnOutput);
+  gradientOutput.multiply(this.learnRa);
+  var gradientHidden = Matrix.map(outOfHidden,this.derivationFunc);
+  gradientHidden.multiply(errorsOnHidden);
+  gradientHidden.multiply(this.learnRa);
+//Change weights of hidden to outpput feed
+  
 }
