@@ -136,7 +136,7 @@ Matrix.dot = function(m1,m2){
 //Seems to not be working
 Matrix.convFromArray = function(array){
   var m = new Matrix(array.length, 1);
-  for(var i=0;i<array.lenght;i++){
+  for (var i = 0; i < array.length; i++) {
     m.matrix[i][0] = array[i];
   }
   return m;
