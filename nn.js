@@ -1,5 +1,5 @@
 NeuralNetwork.sigmoid = function(x){
-  var res=1/(1+pow(Math.E, -x));
+  var res=1/(1+Math.pow(Math.E, -x));
   return res;
 }
 
@@ -7,7 +7,7 @@ NeuralNetwork.derSigmoid = function(x){
   return x*(1-x);
 }
 
-function NeuralNetwork(noI,noH,noO,lr,act){
+function NeuralNetwork(noI,noH,noO,lr){
   this.inputNodes = noI;
   this.hiddenNodes = noH;
   this.outputNodes = noO;
@@ -17,29 +17,27 @@ function NeuralNetwork(noI,noH,noO,lr,act){
   this.weightsHiddenToOutput = new Matrix(this.outputNodes,this.hiddenNodes);
   this.weightsInputToHidden.randomise();
   this.weightsHiddenToOutput.randomise();
-  if(act == "sig"){
-    this.activationFunc = NeuralNetwork.sigmoid;
-    this.derivationFunc = NeuralNetwork.derSigmoid;
-  }
 }
 
 NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
+  console.table(this.weightsInputToHidden.matrix);
+  console.table(this.weightsHiddenToOutput.matrix);
 //feed forward
   var inputs = Matrix.convFromArray(inputsArray);
   var targets = Matrix.convFromArray(targetsArray);
   var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
-  var outOfHidden = Matrix.map(inputToHidden,this.activationFunc);
+  var outOfHidden = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
   var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
-  var outOfOutput = Matrix.map(inputToOutput,this.activationFunc);
+  var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
 //back prop
-  var errorsOnOutput = Matrix.subtract(targets,outputs);
+  var errorsOnOutput = Matrix.subtract(targets,outOfOutput);
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
   var errorsOnHidden = Matrix.dot(weightsHiddenToOutputTrans, errorsOnOutput);
 //Gradient slide
-  var gradientOutput = Matrix.map(outputs,this.derivationFunc);
+  var gradientOutput = Matrix.map(outOfOutput,NeuralNetwork.derSigmoid);
   gradientOutput.multiply(errorsOnOutput);
   gradientOutput.multiply(this.learnRa);
-  var gradientHidden = Matrix.map(outOfHidden,this.derivationFunc);
+  var gradientHidden = Matrix.map(outOfHidden,NeuralNetwork.derSigmoid);
   gradientHidden.multiply(errorsOnHidden);
   gradientHidden.multiply(this.learnRa);
 //Change weights of hidden to outpput feed
@@ -50,15 +48,16 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var inputsTrans = inputs.transpose();
   var changeInInputToHiddenWeights = Matrix.dot(gradientHidden,inputsTrans);
   this.weightsInputToHidden.add(changeInInputToHiddenWeights);
-
+  console.table(this.weightsInputToHidden.matrix);
+  console.table(this.weightsHiddenToOutput.matrix);
 }
 
 //How to feed data to get actual results
 NeuralNetwork.prototype.query = function(inputsArray){
   var inputs = Matrix.convFromArray(inputsArray);
   var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
-  var outOfHidden = Matrix.map(inputToHidden,this.activationFunc);
+  var outOfHidden = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
   var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
-  var outOfOutput = Matrix.map(inputToOutput,this.activationFunc);
+  var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
   return outOfOutput.convToArray;
 }

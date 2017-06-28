@@ -94,6 +94,7 @@ Matrix.prototype.add = function (n) {
 
 //Not sure if it works
 Matrix.map = function(m,func){
+//  console.log(func);
   var out = new Matrix(m.rows,m.cols);
   for(var i = 0;i<out.rows;i++){
     for(var j = 0;j<out.cols;j++){
