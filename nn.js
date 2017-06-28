@@ -22,3 +22,10 @@ function NeuralNetwork(noI,noH,noO,lr,act){
     this.derivationFunc = NeuralNetwork.derSigmoid;
   }
 }
+NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
+  var inputs = Matrix.convFromArray(inputsArray);
+  var targets = Matrix.convFromArray(targetsArray);
+  var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
+  var outOfHidden = Matrix.map(inputToHidden,this.activationFunc);
+
+}
