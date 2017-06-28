@@ -52,3 +52,12 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   this.weightsInputToHidden.add(changeInInputToHiddenWeights);
 
 }
+
+NeuralNetwork.prototype.query = function(inputsArray){
+  var inputs = Matrix.convFromArray(inputsArray);
+  var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
+  var outOfHidden = Matrix.map(inputToHidden,this.activationFunc);
+  var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
+  var outOfOutput = Matrix.map(inputToOutput,this.activationFunc);
+  return outOfOutput.convToArray;
+}
