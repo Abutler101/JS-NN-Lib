@@ -11,8 +11,14 @@ function NeuralNetwork(noI,noH,noO,lr,act){
   this.inputNodes = noI;
   this.hiddenNodes = noH;
   this.outputNodes = noO;
-  this.activationFunc = act;
-  this.lr = lr;
-
-
+  this.learnRa = lr || 0.1;
+// only 3 layers - I->H->O
+  this.weightsInputToHidden = new Matrix(this.hiddenNodes,this.inputNodes);
+  this.weightsHiddenToOutput = new Matrix(this.outputNodes,this.hiddenNodes);
+  this.weightsInputToHidden.randomise();
+  this.weightsHiddenToOutput.randomise();
+  if(act == "sig"){
+    this.activationFunc = NeuralNetwork.sigmoid;
+    this.derivationFunc = NeuralNetwork.derSigmoid;
+  }
 }
