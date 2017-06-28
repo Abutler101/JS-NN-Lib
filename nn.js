@@ -53,6 +53,7 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
 
 }
 
+//How to feed data to get actual results
 NeuralNetwork.prototype.query = function(inputsArray){
   var inputs = Matrix.convFromArray(inputsArray);
   var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
