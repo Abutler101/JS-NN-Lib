@@ -22,6 +22,7 @@ function NeuralNetwork(noI,noH,noO,lr,act){
     this.derivationFunc = NeuralNetwork.derSigmoid;
   }
 }
+
 NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
 //feed forward
   var inputs = Matrix.convFromArray(inputsArray);
@@ -42,5 +43,12 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   gradientHidden.multiply(errorsOnHidden);
   gradientHidden.multiply(this.learnRa);
 //Change weights of hidden to outpput feed
-  
+  var outOfHiddenTrans = outOfHidden.transpose();
+  var changeInHiddenToOutputWeights = Matrix.dot(gradientOutput,outOfHiddenTrans);
+  this.weightsHiddenToOutput.add(changeInHiddenToOutputWeights);
+//Change weights of input to hidden feed
+  var inputsTrans = inputs.transpose();
+  var changeInInputToHiddenWeights = Matrix.dot(gradientHidden,inputsTrans);
+  this.weightsInputToHidden.add(changeInInputToHiddenWeights);
+
 }
