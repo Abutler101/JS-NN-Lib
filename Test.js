@@ -1,7 +1,7 @@
 //next term calculator
 var numInputNods = 3;
 var numHiddenNod = 20;
-var numOutputNod = 20;
+var numOutputNod = 9;
 var network = new NeuralNetwork(numInputNods,numHiddenNod,numOutputNod,'sig');
 var trainingDataInputs = [
                           [1,2,3],
