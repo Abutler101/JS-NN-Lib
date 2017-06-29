@@ -28,7 +28,7 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
   var outOfHidden = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
   var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
-  var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
+  var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid); //does not form to the correct size????
 //back prop
   var errorsOnOutput = Matrix.subtract(targets,outOfOutput);
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
