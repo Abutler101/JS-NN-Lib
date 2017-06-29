@@ -107,7 +107,7 @@ Matrix.map = function(m,func){
 
 //Seems to work
 Matrix.subtract = function(m1,m2){
-  var out = new Matrix(m1.rows,m2.cols);
+  var out = new Matrix(m1.rows,m1.cols);
   for(var i = 0;i<out.rows;i++){
     for(var j = 0;j<out.cols;j++){
       out.matrix[i][j] = m1.matrix[i][j] - m2.matrix[i][j];
