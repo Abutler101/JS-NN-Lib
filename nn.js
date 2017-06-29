@@ -17,7 +17,6 @@ function NeuralNetwork(noI,noH,noO,lr){
 // only 3 layers - I->H->O
   this.weightsInputToHidden = new Matrix(this.hiddenNodes,this.inputNodes);
   this.weightsHiddenToOutput = new Matrix(this.outputNodes,this.hiddenNodes);
-  console.table(this.weightsHiddenToOutput.matrix)
   this.weightsInputToHidden.randomise();
   this.weightsHiddenToOutput.randomise();
 }
