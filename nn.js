@@ -35,13 +35,15 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var errorsOnHidden = Matrix.dot(weightsHiddenToOutputTrans, errorsOnOutput);
 //Gradient slide
   var gradientOutput = Matrix.map(outOfOutput,NeuralNetwork.derSigmoid);
-  gradientOutput.multiply(errorsOnOutput);
+//  console.table(errorsOnOutput);
+  gradientOutput.multiply(errorsOnOutput.matrix);                               //incompatible matricies
   gradientOutput.multiply(this.learnRa);
   var gradientHidden = Matrix.map(outOfHidden,NeuralNetwork.derSigmoid);
   gradientHidden.multiply(errorsOnHidden);
   gradientHidden.multiply(this.learnRa);
 //Change weights of hidden to outpput feed
-  var outOfHiddenTrans = outOfHidden.transpose();
+  console.table(outOfHidden.matrix);
+  var outOfHiddenTrans = outOfHidden.transpose();                               //works upto here
   var changeInHiddenToOutputWeights = Matrix.dot(gradientOutput,outOfHiddenTrans);
   this.weightsHiddenToOutput.add(changeInHiddenToOutputWeights);
 //Change weights of input to hidden feed
