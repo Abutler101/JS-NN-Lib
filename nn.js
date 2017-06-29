@@ -33,24 +33,24 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
   targetsglob = targets;
   outOfOutputglob = outOfOutput;
-  console.table(outOfOutput.matrix);
-  console.table(targets.matrix);
+//  console.table(outOfOutput.matrix);
+//  console.table(targets.matrix);
 //back prop
   var errorsOnOutput = Matrix.subtract(targets,outOfOutput); //issue is now here
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
   var errorsOnHidden = Matrix.dot(weightsHiddenToOutputTrans, errorsOnOutput);
 //Gradient slide
   var gradientOutput = Matrix.map(outOfOutput,NeuralNetwork.derSigmoid);
-  console.table(outOfOutput.matrix);
-  console.table(errorsOnOutput.matrix);
-  console.table(gradientOutput.matrix);
+//  console.table(outOfOutput.matrix);
+//  console.table(errorsOnOutput.matrix);
+//  console.table(gradientOutput.matrix);
   gradientOutput.multiply(errorsOnOutput);
   gradientOutput.multiply(this.learnRa);
   var gradientHidden = Matrix.map(outOfHidden,NeuralNetwork.derSigmoid);
   gradientHidden.multiply(errorsOnHidden);
   gradientHidden.multiply(this.learnRa);
 //Change weights of hidden to outpput feed
-  console.table(outOfHidden.matrix);
+//  console.table(outOfHidden.matrix);
   var outOfHiddenTrans = outOfHidden.transpose();                               //works upto here
   var changeInHiddenToOutputWeights = Matrix.dot(gradientOutput,outOfHiddenTrans);
   this.weightsHiddenToOutput.add(changeInHiddenToOutputWeights);
@@ -58,8 +58,8 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var inputsTrans = inputs.transpose();
   var changeInInputToHiddenWeights = Matrix.dot(gradientHidden,inputsTrans);
   this.weightsInputToHidden.add(changeInInputToHiddenWeights);
-  console.table(this.weightsInputToHidden.matrix);
-  console.table(this.weightsHiddenToOutput.matrix);
+//  console.table(this.weightsInputToHidden.matrix);
+//  console.table(this.weightsHiddenToOutput.matrix);
 }
 
 //How to feed data to get actual results
