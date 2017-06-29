@@ -21,7 +21,7 @@ var trainingDataTargs = [
                           [0,0,0,0,0,0,0,0,0,0.9],//expected out 9
                           [0,0,0,0,0,0,0.9,0,0,0]//expected out 6
                         ]
-console.log(network.activationFunc);
+//console.log(network.activationFunc);
 for(var i=0;i<trainingDataInputs.length;i++){
   network.train(trainingDataInputs[i],trainingDataTargs[i]);
 

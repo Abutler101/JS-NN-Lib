@@ -38,7 +38,7 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   console.table(outOfOutput.matrix);
   console.table(errorsOnOutput.matrix);
   console.table(gradientOutput.matrix);
-  gradientOutput.multiply(errorsOnOutput);                               //incompatible matricies ----> the thing can't deal with different numbers of nodes on each layer
+  gradientOutput.multiply(errorsOnOutput);                               //incompatible matricies ----> the thing can't deal with different numbers of nodes on each layer?
   gradientOutput.multiply(this.learnRa);
   var gradientHidden = Matrix.map(outOfHidden,NeuralNetwork.derSigmoid);
   gradientHidden.multiply(errorsOnHidden);
