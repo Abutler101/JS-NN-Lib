@@ -4,10 +4,9 @@
 function Matrix(rows,cols){
   this.rows=rows;
   this.cols=cols;
-  this.matrix= [];
-
+  this.matrix= new Array(rows);
   for(var i =0; i<this.rows; i++){
-    this.matrix[i] = [];
+    this.matrix[i] = new Array(cols);
     for(var j=0;j<this.cols;j++){
       this.matrix[i][j] = 0;
     }

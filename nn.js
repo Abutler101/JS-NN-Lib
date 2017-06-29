@@ -17,40 +17,31 @@ function NeuralNetwork(noI,noH,noO,lr){
 // only 3 layers - I->H->O
   this.weightsInputToHidden = new Matrix(this.hiddenNodes,this.inputNodes);
   this.weightsHiddenToOutput = new Matrix(this.outputNodes,this.hiddenNodes);
+  console.table(this.weightsHiddenToOutput.matrix)
   this.weightsInputToHidden.randomise();
   this.weightsHiddenToOutput.randomise();
 }
 
 NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
-//  console.table(this.weightsInputToHidden.matrix);
-//  console.table(this.weightsHiddenToOutput.matrix);
 //feed forward
   var inputs = Matrix.convFromArray(inputsArray);
   var targets = Matrix.convFromArray(targetsArray);
   var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
   var outOfHidden = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
   var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
-  var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid); //Something is going wrong here
-  targetsglob = targets;
-  outOfOutputglob = outOfOutput;
-  console.table(outOfOutput.matrix);//only producing 9 values ????
-  console.table(targets.matrix);
+  var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
 //back prop
   var errorsOnOutput = Matrix.subtract(targets,outOfOutput); //issue is now here
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
   var errorsOnHidden = Matrix.dot(weightsHiddenToOutputTrans, errorsOnOutput);
 //Gradient slide
   var gradientOutput = Matrix.map(outOfOutput,NeuralNetwork.derSigmoid);
-//  console.table(outOfOutput.matrix);
-//  console.table(errorsOnOutput.matrix);
-//  console.table(gradientOutput.matrix);
   gradientOutput.multiply(errorsOnOutput);
   gradientOutput.multiply(this.learnRa);
   var gradientHidden = Matrix.map(outOfHidden,NeuralNetwork.derSigmoid);
   gradientHidden.multiply(errorsOnHidden);
   gradientHidden.multiply(this.learnRa);
 //Change weights of hidden to outpput feed
-//  console.table(outOfHidden.matrix);
   var outOfHiddenTrans = outOfHidden.transpose();
   var changeInHiddenToOutputWeights = Matrix.dot(gradientOutput,outOfHiddenTrans);
   this.weightsHiddenToOutput.add(changeInHiddenToOutputWeights);
@@ -58,8 +49,6 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var inputsTrans = inputs.transpose();
   var changeInInputToHiddenWeights = Matrix.dot(gradientHidden,inputsTrans);
   this.weightsInputToHidden.add(changeInInputToHiddenWeights);
-//  console.table(this.weightsInputToHidden.matrix);
-//  console.table(this.weightsHiddenToOutput.matrix);
 }
 
 //How to feed data to get actual results
