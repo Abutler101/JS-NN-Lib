@@ -30,11 +30,11 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
   var outOfHidden = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
   var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
-  var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
+  var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid); //Something is going wrong here
   targetsglob = targets;
   outOfOutputglob = outOfOutput;
-//  console.table(outOfOutput.matrix);
-//  console.table(targets.matrix);
+  console.table(outOfOutput.matrix);//only producing 9 values ????
+  console.table(targets.matrix);
 //back prop
   var errorsOnOutput = Matrix.subtract(targets,outOfOutput); //issue is now here
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
@@ -51,7 +51,7 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   gradientHidden.multiply(this.learnRa);
 //Change weights of hidden to outpput feed
 //  console.table(outOfHidden.matrix);
-  var outOfHiddenTrans = outOfHidden.transpose();                               //works upto here
+  var outOfHiddenTrans = outOfHidden.transpose();
   var changeInHiddenToOutputWeights = Matrix.dot(gradientOutput,outOfHiddenTrans);
   this.weightsHiddenToOutput.add(changeInHiddenToOutputWeights);
 //Change weights of input to hidden feed
