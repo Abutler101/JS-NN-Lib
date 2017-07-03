@@ -23,16 +23,23 @@ function NeuralNetwork(noI,noH,noO,lr){
 
 NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
 //feed forward
+  console.log('entered training');
   var inputs = Matrix.convFromArray(inputsArray);
   var targets = Matrix.convFromArray(targetsArray);
+  console.log('converted inputs & targets to matrix');
   var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
   var outOfHidden = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
   var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
   var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
+  console.log('finished forward feed');
 //back prop
+  console.log('start back prop');
   var errorsOnOutput = Matrix.subtract(targets,outOfOutput); //issue is now here
+  console.log('subtract');
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
+  console.log('transpose');
   var errorsOnHidden = Matrix.dot(weightsHiddenToOutputTrans, errorsOnOutput);
+  console.log('end back prop');
 //Gradient slide
   var gradientOutput = Matrix.map(outOfOutput,NeuralNetwork.derSigmoid);
   gradientOutput.multiply(errorsOnOutput);

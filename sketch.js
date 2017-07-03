@@ -67,8 +67,7 @@ function train() {
   var label = Number(values[0]);
   targets[label] = 0.99;
   console.log('feeding values to net');
-  nn.train(inputs, targets);
-  //hangs on the above command
+  nn.train(inputs, targets); // hangs here --> does not seem to actually run this command
   console.log('trained on inputs:',inputs);
   trainingIndex++;
   if (trainingIndex == training.length) {

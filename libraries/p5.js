@@ -23274,8 +23274,8 @@ p5.prototype.httpDo = function () {
       }).catch(function(err, msg){
         if (errorCallback) {
           errorCallback(err);
-        } else {
-          console.log(err.status + ' ' + err.statusText);
+//        } else {
+//          console.log(err.status + ' ' + err.statusText);
         }
       });
   }
