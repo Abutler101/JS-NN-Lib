@@ -3,19 +3,6 @@ var inputs = 2;
 var hidden = 10;
 var outputs = 1;
 var nn = new NeuralNetwork(inputs,hidden,outputs);
-
-var inputCase1 = [1,0.01]
-var targeCase1 = [0.01]
-
-var inputCase2 = [0.01,1]
-var targeCase2 = [0.01]
-
-var inputCase3 = [0.01,0.01]
-var targeCase3 = [0.01]
-
-var inputCase4 = [1,1]
-var targeCase4 = [1]
-
 var inputs = [
                 [1,0.01],
                 [0.01,1],
