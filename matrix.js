@@ -41,6 +41,7 @@ Matrix.prototype.transpose = function(){
     console.log('row ',i,'started');
     for(var j = 0;j<this.cols;j++){
       out.matrix[i][j] = this.matrix[j][i];
+      console.log('R'+i+'V'+j+'done')
     }
     console.log('row ',i,'done');
   }
