@@ -34,7 +34,7 @@ function setup() {
 function draw() {
   console.log('frame:',frameCount);
   background(000);
-  var traindata = train(); //runs upto here - not sure if the test case is to heavy for the machine or if the script is bad
+  var traindata = train();
   var result = test();
   var testdata = result[0];
   var guess = result[1];
@@ -68,30 +68,36 @@ function train() {
   targets[label] = 0.99;
   console.log('feeding values to net');
   nn.train(inputs, targets); // hangs here --> does not seem to actually run this command
-  console.log('trained on inputs:',inputs);
+  console.log('trained on inputs');
   trainingIndex++;
   if (trainingIndex == training.length) {
     trainingIndex = 0;
     epochs++;
+    console.log('epoch: '+epochs);
   }
   return inputs;
 }
 
 function test() {
+  console.log('Testing')
   var values = training[testingIndex].split(',');
   var inputs = [];
   for (var i = 1; i < values.length; i++) {
     inputs[i - 1] = map(Number(values[i]), 0, 255, 0, 0.99) + 0.01;
   }
+  console.log('sanitised inputs');
   var label = Number(values[0]);
   var outputs = nn.query(inputs);
   var guess = findMax(outputs);
   var correct = false;
   if (guess == label) {
     correct = true;
+    console.log('correct');
   }
+  else{console.log('false');}
   if (frameCount % 30 == 0) {
     testingIndex++;
+    console.log('changing test value');
     if (testingIndex == testing.length) {
       testingIndex = 0;
     }
