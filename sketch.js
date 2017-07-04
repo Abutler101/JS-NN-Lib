@@ -16,7 +16,7 @@ var targeCase3 = [0.01]
 var inputCase4 = [1,1]
 var targeCase4 = [1]
 
-for(var i=0;i<1000;i++){
+for(var i=0;i<500000;i++){
   nn.train(inputCase1,targeCase1);
   nn.train(inputCase2,targeCase2);
   nn.train(inputCase3,targeCase3);
