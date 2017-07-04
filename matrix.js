@@ -35,11 +35,14 @@ Matrix.prototype.convToArray = function(){
 
 //Not sure if it works
 Matrix.prototype.transpose = function(){
+  console.log('TRANSPOSING')
   var out = new Matrix(this.cols,this.rows);
   for(var i = 0;i<this.rows;i++){
+    console.log('row ',i,'started');
     for(var j = 0;j<this.cols;j++){
       out.matrix[i][j] = this.matrix[j][i];
     }
+    console.log('row ',i,'done');
   }
   return out;
 }

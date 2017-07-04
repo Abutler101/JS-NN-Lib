@@ -34,7 +34,7 @@ function setup() {
 function draw() {
   console.log('frame:',frameCount);
   background(200);
-  var traindata = train();
+  var traindata = train(); //runs upto here - not sure if the test case is to heavy for the machine or if the script is bad
   var result = test();
   var testdata = result[0];
   var guess = result[1];
