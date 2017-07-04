@@ -34,9 +34,9 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   console.log('finished forward feed');
 //back prop
   console.log('start back prop');
-  var errorsOnOutput = Matrix.subtract(targets,outOfOutput); //issue is now here
+  var errorsOnOutput = Matrix.subtract(targets,outOfOutput);
   console.log('subtract');
-  console.table(this.weightsHiddenToOutput);
+  console.log(this.weightsHiddenToOutput);
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
   console.log('transpose');
   var errorsOnHidden = Matrix.dot(weightsHiddenToOutputTrans, errorsOnOutput);
