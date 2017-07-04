@@ -16,18 +16,33 @@ var targeCase3 = [0.01]
 var inputCase4 = [1,1]
 var targeCase4 = [1]
 
-for(var i=0;i<500000;i++){
-  nn.train(inputCase1,targeCase1);
-  nn.train(inputCase2,targeCase2);
-  nn.train(inputCase3,targeCase3);
-  nn.train(inputCase4,targeCase4);
+var inputs = [
+                [1,0.01],
+                [0.01,1],
+                [0.01,0.01],
+                [1,1]
+              ]
+
+var targets = [
+                [0.01],
+                [0.01],
+                [0.01],
+                [1]
+              ]
+
+for(var epoch=1;epoch<=500000;epoch++){
+  console.log('epoch: '+epoch)
+  for(var case = 0;case<inputs.length;case++){
+      nn.train(inputs[case],targets[case]);
+  }
 }
+
 console.log('Training done')
-temp = nn.query(inputCase1)
+temp = nn.query(inputs[0])
 console.log(temp+"                SHOULD BE LOW")
-temp = nn.query(inputCase2)
+temp = nn.query(inputs[1])
 console.log(temp+"                SHOULD BE LOW")
-temp = nn.query(inputCase3)
+temp = nn.query(inputs[2])
 console.log(temp+"                SHOULD BE LOW")
-temp = nn.query(inputCase4)
+temp = nn.query(inputs[3])
 console.log(temp+"                SHOULD BE HIGH")
