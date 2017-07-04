@@ -37,9 +37,9 @@ Matrix.prototype.convToArray = function(){
 Matrix.prototype.transpose = function(){ //seems to only do the first row?
   console.log('TRANSPOSING')
   var out = new Matrix(this.cols,this.rows);
-  for(var i = 0;i<this.rows;i++){
+  for(var i = 0;i<out.rows;i++){
     console.log('row ',i,'started');
-    for(var j = 0;j<this.cols;j++){
+    for(var j = 0;j<out.cols;j++){
       out.matrix[i][j] = this.matrix[j][i];
       console.log('R'+i+'V'+j+'done')
     }
