@@ -9,16 +9,25 @@ NeuralNetwork.derSigmoid = function(x){
   return x*(1-x);
 }
 
-function NeuralNetwork(noI,noH,noO,lr){
-  this.inputNodes = noI;
-  this.hiddenNodes = noH;
-  this.outputNodes = noO;
+function NeuralNetwork(noI,noHL,noO,noHNPL,lr){
+  this.inputNodes = noI;                         //single intiger value
+  this.outputNodes = noO;                       //single intiger value
+  this.hiddenLayers = noHL || 1;               //single intiger value
+  this.nodeDistribution = noHNPL || 10;       //list of intiger values, one per hidden layer
+  this.weights = [];
   this.learnRa = lr || 0.1;
-// only 3 layers - I->H->O
-  this.weightsInputToHidden = new Matrix(this.hiddenNodes,this.inputNodes);
-  this.weightsHiddenToOutput = new Matrix(this.outputNodes,this.hiddenNodes);
-  this.weightsInputToHidden.randomise();
-  this.weightsHiddenToOutput.randomise();
+  this.weights[0]= new Matrix(this.nodeDistribution[0],this.inputNodes)
+  this.weights[0].randomise();
+  for(var i =1;i<this.hiddenLayers;i++){
+    this.weights[i] = new Matrix(this.nodeDistribution[i-1],this.nodeDistribution[i]);
+    this.weights[i].randomise();
+  }
+//  this.weightsInputToHidden = new Matrix(this.hiddenNodes,this.inputNodes);
+//  this.weightsHiddenToOutput = new Matrix(this.outputNodes,this.hiddenNodes);
+//  this.weightsInputToHidden.randomise();
+//  this.weightsHiddenToOutput.randomise();
+  console.log(this.weights)
+  debugger;
 }
 
 NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
