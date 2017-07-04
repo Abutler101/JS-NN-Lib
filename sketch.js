@@ -12,14 +12,12 @@ var totalCorrect = 0;
 var totalGuesses = 0;
 var statusP ='';
 // DATAFrom: https://pjreddie.com/projects/mnist-in-csv/
-console.log('launched');
 function preload() {
   training = loadStrings('data/mnist_train_10000.csv');
   testing = loadStrings('data/mnist_test_1000.csv');
 }
 
 function setup() {
-  console.log('entered setup');
   createCanvas(320, 280);
   nn = new NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
   console.log('created netwok');
@@ -28,11 +26,9 @@ function setup() {
   function saveModelJSON() {
     saveJSON(nn, 'model.json');
   }
-  console.log('ending setup')
 }
 
 function draw() {
-  console.log('frame:',frameCount);
   background(000);
   var traindata = train();
   var result = test();
@@ -52,52 +48,41 @@ function draw() {
 }
 
 function train() {
-  console.log('training');
   var values = training[trainingIndex].split(',');
   var inputs = [];
   for (var i = 1; i < values.length; i++) {
     inputs[i - 1] = map(Number(values[i]), 0, 255, 0, 0.99) + 0.01;
   }
-  console.log('sanitised input');
   targets = [];
   for (var k = 0; k < output_nodes; k++) {
     targets[k] = 0.01;
   }
-  console.log('sanitised targets');
   var label = Number(values[0]);
   targets[label] = 0.99;
-  console.log('feeding values to net');
-  nn.train(inputs, targets); // hangs here --> does not seem to actually run this command
-  console.log('trained on inputs');
+  nn.train(inputs, targets);
   trainingIndex++;
   if (trainingIndex == training.length) {
     trainingIndex = 0;
     epochs++;
-    console.log('epoch: '+epochs);
   }
   return inputs;
 }
 
 function test() {
-  console.log('Testing')
   var values = training[testingIndex].split(',');
   var inputs = [];
   for (var i = 1; i < values.length; i++) {
     inputs[i - 1] = map(Number(values[i]), 0, 255, 0, 0.99) + 0.01;
   }
-  console.log('sanitised inputs');
   var label = Number(values[0]);
   var outputs = nn.query(inputs);
   var guess = findMax(outputs);
   var correct = false;
   if (guess == label) {
     correct = true;
-    console.log('correct');
   }
-  else{console.log('false');}
   if (frameCount % 30 == 0) {
     testingIndex++;
-    console.log('changing test value');
     if (testingIndex == testing.length) {
       testingIndex = 0;
     }

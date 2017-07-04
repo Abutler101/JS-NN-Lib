@@ -23,35 +23,25 @@ function NeuralNetwork(noI,noH,noO,lr){
 
 NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
 //feed forward
-  console.log('entered training');
   var inputs = Matrix.convFromArray(inputsArray);
   var targets = Matrix.convFromArray(targetsArray);
-  console.log('converted inputs & targets to matrix');
   var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
   var outOfHidden = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
   var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
   var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
-  console.log('finished forward feed');
 //back prop
-  console.log('start back prop');
   var errorsOnOutput = Matrix.subtract(targets,outOfOutput);
-  console.log('subtract');
   console.log(this.weightsHiddenToOutput);
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
-  console.log('transpose');
   var errorsOnHidden = Matrix.dot(weightsHiddenToOutputTrans, errorsOnOutput);
-  console.log('end back prop');
 //Gradient slide
-  console.log('start gradient descent');
   var gradientOutput = Matrix.map(outOfOutput,NeuralNetwork.derSigmoid);
   gradientOutput.multiply(errorsOnOutput);
   gradientOutput.multiply(this.learnRa);
   var gradientHidden = Matrix.map(outOfHidden,NeuralNetwork.derSigmoid);
   gradientHidden.multiply(errorsOnHidden);
   gradientHidden.multiply(this.learnRa);
-  console.log('end gradient descent');
 //Change weights of hidden to outpput feed
-  console.log('start moding weights');
   var outOfHiddenTrans = outOfHidden.transpose();
   var changeInHiddenToOutputWeights = Matrix.dot(gradientOutput,outOfHiddenTrans);
   this.weightsHiddenToOutput.add(changeInHiddenToOutputWeights);
@@ -59,7 +49,6 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var inputsTrans = inputs.transpose();
   var changeInInputToHiddenWeights = Matrix.dot(gradientHidden,inputsTrans);
   this.weightsInputToHidden.add(changeInInputToHiddenWeights);
-  console.log('end weight modding');
 }
 
 //How to feed data to get actual results
