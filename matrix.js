@@ -34,7 +34,7 @@ Matrix.prototype.convToArray = function(){
 }
 
 //Not sure if it works
-Matrix.prototype.transpose = function(){
+Matrix.prototype.transpose = function(){ //seems to only do the first row?
   console.log('TRANSPOSING')
   var out = new Matrix(this.cols,this.rows);
   for(var i = 0;i<this.rows;i++){
