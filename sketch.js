@@ -31,7 +31,9 @@ var targets = [
               ]
 
 for(var epoch=1;epoch<=500000;epoch++){
-  console.log('epoch: '+epoch)
+  if(epoch % 10000 ===0){
+    console.log('epoch: '+epoch)
+  }
   for(var Tcase = 0;Tcase<inputs.length;Tcase++){
       nn.train(inputs[Tcase],targets[Tcase]);
   }
