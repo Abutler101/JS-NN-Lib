@@ -31,7 +31,6 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
 //back prop
   var errorsOnOutput = Matrix.subtract(targets,outOfOutput);
-  console.log(this.weightsHiddenToOutput);
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
   var errorsOnHidden = Matrix.dot(weightsHiddenToOutputTrans, errorsOnOutput);
 //Gradient slide
@@ -58,5 +57,5 @@ NeuralNetwork.prototype.query = function(inputsArray){
   var outOfHidden = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
   var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
   var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
-  return outOfOutput.convToArray;
+  return outOfOutput.convToArray();
 }
