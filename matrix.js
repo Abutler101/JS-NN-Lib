@@ -75,7 +75,6 @@ Matrix.prototype.multiply = function (n) {
       }
     }
   }
-  console.log('arp')
 }
 
 //Seems to work
