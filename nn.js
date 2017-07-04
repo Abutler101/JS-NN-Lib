@@ -42,13 +42,16 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var errorsOnHidden = Matrix.dot(weightsHiddenToOutputTrans, errorsOnOutput);
   console.log('end back prop');
 //Gradient slide
+  console.log('start gradient descent');
   var gradientOutput = Matrix.map(outOfOutput,NeuralNetwork.derSigmoid);
   gradientOutput.multiply(errorsOnOutput);
   gradientOutput.multiply(this.learnRa);
   var gradientHidden = Matrix.map(outOfHidden,NeuralNetwork.derSigmoid);
   gradientHidden.multiply(errorsOnHidden);
   gradientHidden.multiply(this.learnRa);
+  console.log('end gradient descent');
 //Change weights of hidden to outpput feed
+  console.log('start moding weights');
   var outOfHiddenTrans = outOfHidden.transpose();
   var changeInHiddenToOutputWeights = Matrix.dot(gradientOutput,outOfHiddenTrans);
   this.weightsHiddenToOutput.add(changeInHiddenToOutputWeights);
@@ -56,6 +59,7 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var inputsTrans = inputs.transpose();
   var changeInInputToHiddenWeights = Matrix.dot(gradientHidden,inputsTrans);
   this.weightsInputToHidden.add(changeInInputToHiddenWeights);
+  console.log('end weight modding');
 }
 
 //How to feed data to get actual results
