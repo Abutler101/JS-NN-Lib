@@ -32,7 +32,7 @@ function NeuralNetwork(noI,noO,noHNPL,lr){
 }
 
 NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
-//feed forward
+//start feed forward
   var inputs = Matrix.convFromArray(inputsArray);
   var targets = Matrix.convFromArray(targetsArray);
   var outOfHiddens = []
@@ -47,12 +47,12 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   //manually doing the last hidden to output
   var inputToOutput = Matrix.dot(this.weights[this.weights.length-1],outOfHiddens[outOfHiddens.length-1]);
   var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
+//end feed forward
 
 
 
 
 
-  
 //back prop
   var errorsOnOutput = Matrix.subtract(targets,outOfOutput);
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
