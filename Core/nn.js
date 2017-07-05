@@ -17,31 +17,42 @@ function NeuralNetwork(noI,noO,noHNPL,lr){
   this.weights = [];
   this.learnRa = lr || 0.1;
 
+  //manually doing the input to first hidden
   this.weights[0]= new Matrix(this.nodeDistribution[0],this.inputNodes)
   this.weights[0].randomise();
-  console.table(this.weights[0].matrix)
-
+  //Loop through all layers?
   for(var i = 1;i<this.nodeDistribution.length;i++){
     this.weights[i] = new Matrix(this.nodeDistribution[i],this.nodeDistribution[i-1]);
     this.weights[i].randomise();
-    console.table(this.weights[i].matrix)
   }
-  
+  //manually doing the last hidden to output
   this.weights[this.nodeDistribution.length] = new Matrix(this.outputNodes,this.nodeDistribution[this.nodeDistribution.length-1]);
   this.weights[this.nodeDistribution.length].randomise();
-  console.table(this.weights[this.nodeDistribution.length].matrix)
-
-  debugger;
+//  debugger;
 }
 
 NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
 //feed forward
   var inputs = Matrix.convFromArray(inputsArray);
   var targets = Matrix.convFromArray(targetsArray);
-  var inputToHidden = Matrix.dot(this.weightsInputToHidden,inputs);
-  var outOfHidden = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
-  var inputToOutput = Matrix.dot(this.weightsHiddenToOutput,outOfHidden);
+  var outOfHiddens = []
+  //manually doing the input to first hidden
+  var inputToHidden = Matrix.dot(this.weights[0],inputs)
+  var outOfHiddens[0] = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
+  //Loop through all layers?
+  for(var i = 1;i<this.weights.length;i++){
+    var inputToHidden = Matrix.dot(this.weights[i],outOfHiddens[i-1]);
+    var outOfHiddens[i] = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
+  }
+  //manually doing the last hidden to output
+  var inputToOutput = Matrix.dot(this.weights[this.weights.length-1],outOfHiddens[outOfHiddens.length-1]);
   var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
+
+
+
+
+
+  
 //back prop
   var errorsOnOutput = Matrix.subtract(targets,outOfOutput);
   var weightsHiddenToOutputTrans = this.weightsHiddenToOutput.transpose();
