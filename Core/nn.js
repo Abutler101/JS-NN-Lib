@@ -16,14 +16,21 @@ function NeuralNetwork(noI,noO,noHNPL,lr){
   this.nodeDistribution = noHNPL;       //list of intiger values, one per hidden layer
   this.weights = [];
   this.learnRa = lr || 0.1;
+
   this.weights[0]= new Matrix(this.nodeDistribution[0],this.inputNodes)
   this.weights[0].randomise();
-  for(vaar i = 0;)
-//  this.weightsInputToHidden = new Matrix(this.hiddenNodes,this.inputNodes);
-//  this.weightsHiddenToOutput = new Matrix(this.outputNodes,this.hiddenNodes);
-//  this.weightsInputToHidden.randomise();
-//  this.weightsHiddenToOutput.randomise();
   console.table(this.weights[0].matrix)
+
+  for(var i = 1;i<this.nodeDistribution.length;i++){
+    this.weights[i] = new Matrix(this.nodeDistribution[i],this.nodeDistribution[i-1]);
+    this.weights[i].randomise();
+    console.table(this.weights[i].matrix)
+  }
+  
+  this.weights[this.nodeDistribution.length] = new Matrix(this.outputNodes,this.nodeDistribution[this.nodeDistribution.length-1]);
+  this.weights[this.nodeDistribution.length].randomise();
+  console.table(this.weights[this.nodeDistribution.length].matrix)
+
   debugger;
 }
 
