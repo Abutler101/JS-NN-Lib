@@ -35,23 +35,21 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
 //start feed forward
   var inputs = Matrix.convFromArray(inputsArray);
   var targets = Matrix.convFromArray(targetsArray);
-  var outOfHiddens = []
+  var outOfHiddens = [];
   //manually doing the input to first hidden
   var inputToHidden = Matrix.dot(this.weights[0],inputs)
-  var outOfHiddens[0] = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
+  outOfHiddens[0] = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
   //Loop through all layers?
   for(var i = 1;i<this.weights.length;i++){
     var inputToHidden = Matrix.dot(this.weights[i],outOfHiddens[i-1]);
-    var outOfHiddens[i] = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
+    outOfHiddens[i] = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
+    console.table(outOfHiddens[i].matrix)
   }
-  //manually doing the last hidden to output
+  debugger; //Runs fine to here
+  //manually doing the last hidden to output  -----> Seems to be an issue with this
   var inputToOutput = Matrix.dot(this.weights[this.weights.length-1],outOfHiddens[outOfHiddens.length-1]);
   var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
 //end feed forward
-
-
-
-
 
 //back prop
   var errorsOnOutput = Matrix.subtract(targets,outOfOutput);
