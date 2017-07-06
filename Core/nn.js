@@ -45,9 +45,11 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
     outOfHiddens[i] = Matrix.map(inputToHidden,NeuralNetwork.sigmoid);
     console.table(outOfHiddens[i].matrix)
   }
-  debugger; //Runs fine to here
+//  debugger; //Runs fine to here
   //manually doing the last hidden to output  -----> Seems to be an issue with this
-  var inputToOutput = Matrix.dot(this.weights[this.weights.length-1],outOfHiddens[outOfHiddens.length-1]);
+  console.table(this.weights[this.weights.length-1].matrix)
+  console.table(outOfHiddens[outOfHiddens.length-1].matrix)
+  var inputToOutput = Matrix.dot(this.weights[this.weights.length-1],outOfHiddens[outOfHiddens.length-1]); //These are incompatible
   var outOfOutput = Matrix.map(inputToOutput,NeuralNetwork.sigmoid);
 //end feed forward
 
