@@ -74,13 +74,25 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   //               [1] -> change on penultimate hidden to last hidden layer
   //               ...
   //               [5] ->change on input to first hidden
+  var lastHiddenToOutput = Matrix.dot(this.Gradients[0],this.transposedOutputs[this.transposedOutputs.length-2]);
+  var firstToSecondHidden = Matrix.dot(this.Gradients[1],this.transposedOutputs[this.transposedOutputs.length-2-1]) //NOPE
+  var inputToFirstHidden = Matrix.dot(this.Gradients[2],inputs.transpose()) //NOPE
+  console.table(lastHiddenToOutput.matrix)
+  console.table(firstToSecondHidden.matrix)
+  console.table(inputToFirstHidden.matrix)
 
-  for(var i=0; i<this.transposedOutputs.length;i++){
-    //CALCULATE CHNAGES TO THE WEIGHTS
+  for(var i=0; i<this.transposedOutputs.length-1;i++){
+
   }
+
+  for(var bug=0;bug<this.weightChanges.length;bug++){
+
+  }
+  debugger;
 
   for(var i = 0; i<this.weightsReversed.length;i++){
     //ADD THE CHANGES TO THE WEIGHTS
+
   }
 
 
