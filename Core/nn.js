@@ -25,7 +25,7 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   var inputs = Matrix.convFromArray(inputsArray);
   var targets = Matrix.convFromArray(targetsArray);
   var outOfLayers = [];
-  //outOfLayers: [fistHiddenOutput,secondHiddenOutput,...,lastHiddenOutput,OutputOfOutput]
+  //outOfLayers: [fistHiddenOutput,secondHiddenOutput,OutputOfOutput]
 //Start Feed forward
   for(var i=0;i<this.weights.length;i++){
     if(i===0){var outOfPrev = inputs;}
@@ -57,33 +57,42 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   //                [1] -> gradient for last hidden layer
   //                ...
   //                [5] -> gradient for first hidden layer
-  for(var i =0;i<outOfLayers.length;i++){
-    this.Gradients[i]=Matrix.map(outOfLayers[outOfLayers.length-1],NeuralNetwork.derSigmoid);
-    this.Gradients[i].multiply(errors[i]);
-    this.Gradients[i].multiply(this.learningRate);
-  }
+//  for(var i =0;i<outOfLayers.length;i++){
+//    this.Gradients[i]=Matrix.map(outOfLayers[outOfLayers.length-1],NeuralNetwork.derSigmoid);
+//    this.Gradients[i].multiply(errors[i]);
+//    this.Gradients[i].multiply(this.learningRate);
+//  }
+  var gradientOutput = Matrix.map(outOfLayers[2],NeuralNetwork.derSigmoid);
+  gradientOutput.multiply(errors[0]);
+  gradientOutput.multiply(this.learningRate);
+  var gradientLHidden = Matrix.map(outOfLayers[1],NeuralNetwork.derSigmoid);
+  gradientLHidden.multiply(errors[1]);
+  gradientLHidden.multiply(this.learningRate);
+  //FINE UPTO HERE
+  var gradientFHidden = Matrix.map(outOfLayers[0],NeuralNetwork.derSigmoid);
+  gradientFHidden.multiply(errors[3])
+  gradientFHidden.multiply(this.learningRate);
+  console.log(gradientOutput);
+  console.log(gradientLHidden);
+  console.log(gradientFHidden);
 //End Gradient descent
 
 //Start weight changeing
-  this.transposedOutputs = [];
-  for(var i = 0;i<outOfLayers.length;i++){
-    this.transposedOutputs[i] = outOfLayers[i].transpose();
-  }
+
   this.weightChanges = [];
   //weightChanges: [0] ->change on last hidden to output
   //               [1] -> change on penultimate hidden to last hidden layer
   //               ...
   //               [5] ->change on input to first hidden
-  var lastHiddenToOutput = Matrix.dot(this.Gradients[0],this.transposedOutputs[this.transposedOutputs.length-2]);
-  var firstToSecondHidden = Matrix.dot(this.Gradients[1],this.transposedOutputs[this.transposedOutputs.length-2-1]) //NOPE
-  var inputToFirstHidden = Matrix.dot(this.Gradients[2],inputs.transpose()) //NOPE
+  var lastHiddenToOutput = Matrix.dot(this.Gradients[0],(outOfLayers[1].transpose()));
+  var firstToSecondHidden = Matrix.dot(this.Gradients[1],(outOfLayers[0].transpose())); //NOPE
+  var inputToFirstHidden = Matrix.dot(this.Gradients[2],(inputs.transpose())); //NOPE
   console.table(lastHiddenToOutput.matrix)
+  console.table(this.weights[2].matrix)
   console.table(firstToSecondHidden.matrix)
+  console.table(this.weights[1].matrix)
   console.table(inputToFirstHidden.matrix)
-
-  for(var i=0; i<this.transposedOutputs.length-1;i++){
-
-  }
+  console.table(this.weights[0].matrix)
 
   for(var bug=0;bug<this.weightChanges.length;bug++){
 
