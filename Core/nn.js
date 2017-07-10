@@ -57,53 +57,33 @@ NeuralNetwork.prototype.train = function(inputsArray,targetsArray){
   //                [1] -> gradient for last hidden layer
   //                ...
   //                [5] -> gradient for first hidden layer
-//  for(var i =0;i<outOfLayers.length;i++){
-//    this.Gradients[i]=Matrix.map(outOfLayers[outOfLayers.length-1],NeuralNetwork.derSigmoid);
-//    this.Gradients[i].multiply(errors[i]);
-//    this.Gradients[i].multiply(this.learningRate);
-//  }
-  var gradientOutput = Matrix.map(outOfLayers[2],NeuralNetwork.derSigmoid);
-  gradientOutput.multiply(errors[0]);
-  gradientOutput.multiply(this.learningRate);
-  var gradientLHidden = Matrix.map(outOfLayers[1],NeuralNetwork.derSigmoid);
-  gradientLHidden.multiply(errors[1]);
-  gradientLHidden.multiply(this.learningRate);
-  //FINE UPTO HERE
-  var gradientFHidden = Matrix.map(outOfLayers[0],NeuralNetwork.derSigmoid);
-  gradientFHidden.multiply(errors[3])
-  gradientFHidden.multiply(this.learningRate);
-  console.log(gradientOutput);
-  console.log(gradientLHidden);
-  console.log(gradientFHidden);
+  for(var i =0;i<outOfLayers.length;i++){
+    this.Gradients[i]=Matrix.map(outOfLayers[outOfLayers.length-1-i],NeuralNetwork.derSigmoid);
+    this.Gradients[i].multiply(errors[i]);
+    this.Gradients[i].multiply(this.learningRate);
+  }
+
 //End Gradient descent
-
 //Start weight changeing
-
   this.weightChanges = [];
   //weightChanges: [0] ->change on last hidden to output
   //               [1] -> change on penultimate hidden to last hidden layer
   //               ...
   //               [5] ->change on input to first hidden
-  var lastHiddenToOutput = Matrix.dot(this.Gradients[0],(outOfLayers[1].transpose()));
-  var firstToSecondHidden = Matrix.dot(this.Gradients[1],(outOfLayers[0].transpose())); //NOPE
-  var inputToFirstHidden = Matrix.dot(this.Gradients[2],(inputs.transpose())); //NOPE
-  console.table(lastHiddenToOutput.matrix)
-  console.table(this.weights[2].matrix)
-  console.table(firstToSecondHidden.matrix)
-  console.table(this.weights[1].matrix)
-  console.table(inputToFirstHidden.matrix)
-  console.table(this.weights[0].matrix)
-
-  for(var bug=0;bug<this.weightChanges.length;bug++){
-
+  for(var i=0;i<this.weights.length;i++){
+    if(i!=this.weights.length-1){
+      this.weightChanges[i] = Matrix.dot(this.Gradients[i],(outOfLayers[outOfLayers.length-2-i].transpose()));
+    }
+    else{
+      this.weightChanges[i] = Matrix.dot(this.Gradients[i],(inputs.transpose()));
+    }
   }
-  debugger;
 
   for(var i = 0; i<this.weightsReversed.length;i++){
-    //ADD THE CHANGES TO THE WEIGHTS
-
+    this.weightsReversed[i].add(this.weightChanges[i]);
   }
-
+  this.weights = this.weightsReversed.reverse();
+//End weight changeing
 
 }
 

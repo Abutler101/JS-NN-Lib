@@ -1,11 +1,36 @@
-var temp = new NeuralNetwork([2,3,4,1])
-function setup(){
+//var temp = new NeuralNetwork([2,3,4,1])
+console.log('OBJECTIVE - learn AND gate');
+var nodeDistribution = [2,10,3,4,1]
+var nn = new NeuralNetwork(nodeDistribution);
+var inputs = [
+                [1,0.01],
+                [0.01,1],
+                [0.01,0.01],
+                [1,1]
+              ]
 
+var targets = [
+                [0.01],
+                [0.01],
+                [0.01],
+                [1]
+              ]
 
-
+for(var epoch=1;epoch<=1000000;epoch++){
+  if(epoch % 200000 ===0){
+    console.log('epoch: '+epoch)
+  }
+  for(var Tcase = 0;Tcase<inputs.length;Tcase++){
+      nn.train(inputs[Tcase],targets[Tcase]);
+  }
 }
-function draw(){
 
-
-
-}
+console.log('Training done')
+temp = nn.query(inputs[0])
+console.log(Math.round(temp)+"                SHOULD BE LOW")
+temp = nn.query(inputs[1])
+console.log(Math.round(temp)+"                SHOULD BE LOW")
+temp = nn.query(inputs[2])
+console.log(Math.round(temp)+"                SHOULD BE LOW")
+temp = nn.query(inputs[3])
+console.log(Math.round(temp)+"                SHOULD BE HIGH")
