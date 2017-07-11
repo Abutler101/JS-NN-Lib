@@ -272,7 +272,7 @@ function RndInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
-for(var epoch=1;epoch<=10000000;epoch++){//    10 mill iterations
+for(var epoch=1;epoch<=100000000;epoch++){//    100 mill iterations
   if(epoch% 2 === 0){
     var index = RndInt(0,3)
     var test = nn.query(inputs[index])
@@ -280,8 +280,8 @@ for(var epoch=1;epoch<=10000000;epoch++){//    10 mill iterations
       acc ++;
     }
   }
-  if(epoch % 200000 ===0){  //every 200 thousand
-    console.log('Epoch: '+epoch+' Time elapsed: '+' coming soon '+' Accuracy: '+((acc/ 200000)*100)+'%')
+  if(epoch % 20000 ===0){  //every 20 thousand
+    console.log('Epoch: '+epoch+' Time elapsed: '+' coming soon '+' Accuracy: '+((acc/ 10000)*100)+'%')
     acc = 0;
   }
   for(var Tcase = 0;Tcase<inputs.length;Tcase++){
