@@ -1,6 +1,6 @@
 //var temp = new NeuralNetwork([2,3,4,1])
-const garp = require('./core/nn');
-const snarp = require('./core/matrix');
+require('./core/nn');
+require('./core/matrix');
 
 console.log('OBJECTIVE - learn AND gate');
 var nodeDistribution = [2,5,3,4,1]
