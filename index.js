@@ -294,11 +294,10 @@ for(var epoch=1;epoch<=100000000;epoch++){//    100 mill iterations
 }
 
 console.log('Training done')
-temp = nn.query(inputs[0])
-console.log(temp+"                SHOULD BE LOW")
-temp = nn.query(inputs[1])
-console.log(temp+"                SHOULD BE LOW")
-temp = nn.query(inputs[2])
-console.log(temp+"                SHOULD BE LOW")
-temp = nn.query(inputs[3])
-console.log(temp+"                SHOULD BE HIGH")
+
+for(var i =0;i<inputs.length;i++){
+  temp = nn.query(inputs[i]);
+  var targ = targets[i];
+  if(targ > 0.5){console.log(temp+"                SHOULD BE HIGH")}
+  else {console.log(temp+"                SHOULD BE LOW")}
+}
