@@ -281,7 +281,11 @@ for(var epoch=1;epoch<=100000000;epoch++){//    100 mill iterations
     }
   }
   if(epoch % 20000 ===0){  //every 20 thousand
-    console.log('Epoch: '+epoch+' Time elapsed: '+' coming soon '+' Accuracy: '+((acc/ 10000)*100)+'%')
+    var perc = (acc/ 10000)*100;
+    console.log('Epoch: '+epoch+' Accuracy: '+perc+'%')
+    if(perc>98){
+      break;
+    }
     acc = 0;
   }
   for(var Tcase = 0;Tcase<inputs.length;Tcase++){
