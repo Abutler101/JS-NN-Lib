@@ -2,6 +2,7 @@
 console.log('OBJECTIVE - learn AND gate');
 var nodeDistribution = [2,5,3,4,1]
 var nn = new NeuralNetwork(nodeDistribution);
+var acc = 0;
 var inputs = [
                 [1,0.01],
                 [0.01,1],
@@ -16,9 +17,21 @@ var targets = [
                 [1]
               ]
 
-for(var epoch=1;epoch<=50000000;epoch++){
-  if(epoch % 200000 ===0){
-    console.log('epoch: '+epoch)
+function RndInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+for(var epoch=1;epoch<=10000000;epoch++){//    10 mill iterations
+  if(epoch% 2 === 0){
+    var index = RndInt(0,3)
+    var test = nn.query(inputs[index])
+    if(test < 0.5 && targets[index] < 0.5 || test >= 0.5 && targets[index]>= 0.5){
+      acc ++;
+    }
+  }
+  if(epoch % 200000 ===0){  //every 200 thousand
+    console.log('Epoch: '+epoch+' Time elapsed: '+' coming soon '+' Accuracy: '+((acc/ 20000)*100)+'%')
+    acc = 0;
   }
   for(var Tcase = 0;Tcase<inputs.length;Tcase++){
       nn.train(inputs[Tcase],targets[Tcase]);
