@@ -500,7 +500,6 @@ for(var i = 0;i<inputs.length;i++){
   }
 }
 
-console.log(oneDInputs[0]);
 function RndInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
@@ -513,8 +512,8 @@ for(var epoch=1;epoch<=100000;epoch++){//    100 thousand iterations
       acc ++;
     }
   }
-  if(epoch % 20000 ===0){  //every 20 thousand
-    console.log('Epoch: '+epoch+' Accuracy: '+((acc/ 1000)*100)+'%')
+  if(epoch % 20 ===0){  //every 200
+    console.log('Epoch: '+epoch+' Accuracy: '+((acc/ 10)*100)+'%')
     acc = 0;
   }
   for(var Tcase = 0;Tcase<inputs.length;Tcase++){
