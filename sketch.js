@@ -504,6 +504,7 @@ function RndInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+console.log('STARTING TRAINING');
 for(var epoch=1;epoch<=100000;epoch++){//    100 thousand iterations
   if(epoch% 2 === 0){
     var index = RndInt(0,3)
