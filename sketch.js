@@ -1,6 +1,6 @@
 //var temp = new NeuralNetwork([2,3,4,1])
 console.log('OBJECTIVE - learn AND gate');
-var nodeDistribution = [260,400,300,200,200,180,90,2]
+var nodeDistribution = [260,20,15,10,5,2];
 var nn = new NeuralNetwork(nodeDistribution);
 var acc = 0;
 var inputs = [
@@ -505,17 +505,17 @@ function RndInt(min, max) {
 }
 
 console.log('STARTING TRAINING');
-for(var epoch=1;epoch<=100000;epoch++){//    100 thousand iterations
+for(var epoch=1;epoch<=200000;epoch++){//    200 THOUSAND iterations
   if(epoch% 2 === 0){
-    var index = RndInt(0,3)
+    var index = RndInt(0,39)
     var test = nn.query(oneDInputs[index])
-    if(test < 0.5 && targets[index] < 0.5 || test >= 0.5 && targets[index]>= 0.5){
+    if(test[0] < 0.5 && targets[index][0] < 0.5 && test[1] > 0.5 && targets[index][1] > 0.5||
+       test[0] >= 0.5 && targets[index][0]>= 0.5 && test[1] <= 0.5 && targets[index][1]<= 0.5){
       acc ++;
     }
   }
-  if(epoch % 20 ===0){  //every 200
-    console.log('Epoch: '+epoch+' Accuracy: '+((acc/ 10)*100)+'%')
-    acc = 0;
+  if(epoch % 200 ===0){  //every 200
+    console.log('Epoch: '+epoch+' Accuracy: '+((acc/(epoch/2))*100)+'%')
   }
   for(var Tcase = 0;Tcase<inputs.length;Tcase++){
       nn.train(oneDInputs[Tcase],targets[Tcase]);
@@ -523,3 +523,34 @@ for(var epoch=1;epoch<=100000;epoch++){//    100 thousand iterations
 }
 
 console.log('Training done')
+
+function UsrTest(word){
+  var alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X',
+  "Y",'Z'];
+  //CONVERTS TO 2D
+  var converted2d = [
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+                  ];
+    var wordSplit = word.split('');
+    for(var i = 0;i<wordSplit.length;i++){
+      converted2d[i][alphabet.indexOf(wordSplit[i])] = 1;
+    }
+  //CONVERT TO 1D
+  var converted = [];
+  for(var letr = 0;letr<converted2d.length;letr++){
+      converted= converted.concat(converted2d[letr]);
+  }
+  var Result=nn.query(converted);
+  console.log(Result);
+  if(Result==[0.01,1]){console.log('GERMAN!');}
+  else if (Result==[1,0.01]){console.log('ENGLISH!');}
+}
