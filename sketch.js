@@ -505,7 +505,7 @@ function RndInt(min, max) {
 }
 
 console.log('STARTING TRAINING');
-for(var epoch=1;epoch<=200000;epoch++){//    200 THOUSAND iterations
+for(var epoch=1;epoch<=2000000;epoch++){//    2 Million iterations
   if(epoch% 2 === 0){
     var index = RndInt(0,39)
     var test = nn.query(oneDInputs[index])
